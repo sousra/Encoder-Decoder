@@ -1,12 +1,12 @@
 all: decoder
 
-decoder: decoder.o libEncoding.a
-	gcc decoder.o -L. -lEncoding -o decoder -std=c99
+decoder: decoder.o libDecoding.a
+	gcc decoder.o -L. -lDecoding -o decoder -std=c99
 
 decoder.o: decoder.c
 	gcc -c decoder.c -std=c99
 
-libEncoding.a: stringFunctions.o  encodingAndDecodingFunctions.o
+libDecoding.a: stringFunctions.o  encodingAndDecodingFunctions.o
 	ar rc libDecoding.a stringFunctions.o  encodingAndDecodingFunctions.o
 	ranlib libDecoding.a
 

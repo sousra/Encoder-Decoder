@@ -1,0 +1,19 @@
+all: encoder
+
+encoder: encoder.o libEncoding.so
+	gcc -o encoder encoder.o -L. -lEncoding -Wl,-rpath,.
+
+encoder.o: encoder.c
+	gcc -c encoder.c -std=c99
+
+libEncoding.so: stringFunctions.o encodingAndDecodingFunctions.o
+	gcc -shared -o libEncoding.so stringFunctions.o encodingAndDecodingFunctions.o
+
+stringFunctions.o: stringFunctions.c
+	gcc -c -fPIC stringFunctions.c -std=c99
+
+encodingAndDecodingFunctions.o: encodingAndDecodingFunctions.c
+	gcc -c -fPIC encodingAndDecodingFunctions.c -std=c99
+
+clean:
+	rm -f *.o *.so encoder
